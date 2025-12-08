@@ -1,0 +1,25 @@
+{
+  "tasks": {
+    "dev": "deno serve --port 1029 --watch --allow-read=src main.js"
+  },
+  "fmt": {
+    "useTabs": true
+  },
+  "imports": {
+    "@types": "./types.js",
+    "idb": "https://esm.sh/idb@8.0.3"
+  },
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "deno.ns"
+    ],
+    "types": [
+      "deno.ns"
+    ]
+  }
+}
