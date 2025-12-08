@@ -88,3 +88,17 @@ export class SVGResponse extends Response {
 		super(body, _init);
 	}
 }
+/**
+ * A HTTP JSON Response
+ * @extends Response
+ */
+export class PNGResponse extends Response {
+	/**
+	 * @param {BodyInit} body
+	 * @param {ResponseInit} [init]
+	 */
+	constructor(body, init) {
+		const _init = addContentTypeHeader("image/png", init);
+		super(body, _init);
+	}
+}

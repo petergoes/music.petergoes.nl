@@ -80,7 +80,7 @@ export const batchUpdateArtistImages = async () => {
 	if (artistWithoutImages.length === 0) return false;
 
 	const artistIdsWithoutImages = artistWithoutImages
-		.slice(0, 5)
+		.slice(0, 50)
 		.map((artist) => artist.id)
 		.join(",");
 
