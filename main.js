@@ -1,10 +1,6 @@
-import { Document } from "./src/document.js";
-import {
-	CSSResponse,
-	HTMLResponse,
-	JSONResponse,
-	JSResponse,
-} from "./src/utils/response.js";
+import { CSSResponse, HTMLResponse, JSResponse } from "./src/utils/response.js";
+
+const document = Deno.readTextFileSync("./index.html");
 
 /** @param {URL} url */
 const loadAsset = (url) => Deno.readTextFile(`${Deno.cwd()}${url.pathname}`);
@@ -26,6 +22,6 @@ export default {
 			return new Response("not found", { status: 404 });
 		}
 
-		return new HTMLResponse(Document());
+		return new HTMLResponse(document);
 	},
 };

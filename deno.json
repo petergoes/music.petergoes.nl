@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno serve --port 1029 --watch --allow-read=src main.js"
+    "dev": "deno serve --port 1029 --watch --allow-read=. main.js"
   },
   "fmt": {
     "useTabs": true
