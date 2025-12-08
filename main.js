@@ -1,4 +1,10 @@
-import { CSSResponse, HTMLResponse, JSResponse } from "./src/utils/response.js";
+import {
+	CSSResponse,
+	HTMLResponse,
+	JSONResponse,
+	JSResponse,
+	SVGResponse,
+} from "./src/utils/response.js";
 
 const document = Deno.readTextFileSync("./index.html");
 
@@ -16,6 +22,14 @@ export default {
 
 		if (request?.url?.endsWith(".js")) {
 			return loadAsset(url).then((file) => new JSResponse(file));
+		}
+
+		if (request?.url?.endsWith(".webmanifest")) {
+			return loadAsset(url).then((file) => new JSONResponse(file));
+		}
+
+		if (request?.url?.endsWith(".svg")) {
+			return loadAsset(url).then((file) => new SVGResponse(file));
 		}
 
 		if (request?.url?.endsWith(".json")) {

@@ -1,0 +1,67 @@
+app-root {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "router"
+    "player";
+
+  row-gap: var(--space);
+
+  &>app-header {
+    grid-area: header;
+  }
+
+  &>artist-list {
+    grid-area: artist-list;
+    display: none;
+    overflow-y: scroll;
+    margin-inline: var(--space);
+  }
+
+  &>app-router {
+    grid-area: router;
+    overflow-y: scroll;
+  }
+
+  &>app-player {
+    grid-area: player
+  }
+}
+
+
+@media (width >=768px) {
+  app-root {
+    grid-template-areas:
+      "header header"
+      "artist-list router"
+      "player player";
+
+    grid-template-columns: 360px 1fr;
+
+    &>artist-list {
+      --artist-list-item-min-width: 200px;
+      display: grid;
+      max-height: fit-content;
+    }
+  }
+}
+
+app-root:has(app-view-home) {
+  grid-template-areas:
+    "header"
+    "artist-list"
+    "player";
+  grid-template-columns: 1fr;
+
+  &>app-router {
+    display: none;
+  }
+
+  &>artist-list {
+    display: grid;
+  }
+
+}

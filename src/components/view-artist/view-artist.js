@@ -2,7 +2,10 @@ import { getArtist, updateArtistImages } from "../../data/artists.js";
 import { getAlbumsById } from "../../data/albums.js";
 import { MPGAlbum } from "../album/album.js";
 
-export class MPGViewArtist extends HTMLElement {
+import styles from "./view-artist.css" with { type: "css" };
+document.adoptedStyleSheets.push(styles);
+
+export class ViewArtist extends HTMLElement {
 	/** @param {import("@types").Artist['id'] | undefined} artistId */
 	constructor(artistId) {
 		super();
@@ -10,11 +13,19 @@ export class MPGViewArtist extends HTMLElement {
 		const titleElement = document.createElement("h1");
 
 		const image = document.createElement("img");
-		image.width = 640;
-		image.height = 640;
+		image.classList.add("artist-image");
+		image.role = "presentation";
 
-		this.appendChild(titleElement);
+		const imageCover = document.createElement("div");
+		imageCover.classList.add("artist-image-cover");
+
+		const albumContainer = document.createElement("div");
+		albumContainer.classList.add("album-container");
+
 		this.appendChild(image);
+		this.appendChild(imageCover);
+		this.appendChild(titleElement);
+		this.appendChild(albumContainer);
 
 		if (artistId) {
 			getArtist(artistId)
@@ -23,23 +34,21 @@ export class MPGViewArtist extends HTMLElement {
 
 					if (!artist.images) {
 						updateArtistImages(artistId).then((artist) => {
-							image.src = artist.images?.find((image) =>
-								image.width === 640
-							)?.url || "";
+							image.src = artist.images?.[0]?.url || "";
 						});
 					} else {
-						image.src = artist.images.find((image) =>
-							image.width === 640
-						)?.url || "";
+						image.src = artist.images?.[0]?.url || "";
 					}
 
 					return getAlbumsById(artist.albums);
 				})
 				.then((albums) => {
-					albums.forEach((album) => this.appendChild(new MPGAlbum(album)));
+					albums.forEach((album) =>
+						albumContainer.appendChild(new MPGAlbum(album))
+					);
 				});
 		}
 	}
 }
 
-customElements.define("mpg-view-artist", MPGViewArtist);
+customElements.define("view-artist", ViewArtist);

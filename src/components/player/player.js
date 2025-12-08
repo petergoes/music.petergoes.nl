@@ -4,7 +4,7 @@ import { MPGDevices } from "../devices/devices.js";
 import styles from "./player.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
 
-export class MPGPlayer extends HTMLElement {
+export class AppPlayer extends HTMLElement {
 	constructor() {
 		super();
 
@@ -32,4 +32,4 @@ export class MPGPlayer extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-player", MPGPlayer);
+customElements.define("app-player", AppPlayer);

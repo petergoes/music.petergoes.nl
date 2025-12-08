@@ -1,7 +1,7 @@
 const searchSheet = new CSSStyleSheet();
 document.adoptedStyleSheets.push(searchSheet);
 
-export class MPGSearch extends HTMLElement {
+export class AppSearch extends HTMLElement {
 	constructor() {
 		super();
 
@@ -31,10 +31,10 @@ export class MPGSearch extends HTMLElement {
 		const value = inputField.value;
 		if (value) {
 			searchSheet.replaceSync(`
-					:where([artist-names], [album-title], [track-name]) { display: none; }
-					[artist-names*="${value}"] { display: block; }
-					[album-title*="${value}"] { display: block; }
-					[track-name*="${value}"] { display: block; }
+					:where([artist-names], [album-title], [track-name]) { display: none !important; }
+					[artist-names*="${value}"] { display: block !important; }
+					[album-title*="${value}"] { display: block !important; }
+					[track-name*="${value}"] { display: block !important; }
 			`);
 		} else {
 			this.clearSearchStyles();
@@ -46,4 +46,4 @@ export class MPGSearch extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-search", MPGSearch);
+customElements.define("app-search", AppSearch);

@@ -12,9 +12,8 @@ export class MPGArtistListItem extends HTMLElement {
 
 		const image = document.createElement("img");
 		image.width = 160;
-		image.height = 160;
 		image.role = "presentation";
-		image.src = artist.images?.at(-1)?.url || "";
+		image.src = artist.images?.at(0)?.url || "";
 
 		this.#titleElement = document.createElement("a");
 		this.#titleElement.href = `/artist/${artist.id}`;

@@ -4,7 +4,7 @@ import { MPGArtistListItem } from "../artist-list-item/artist-list-item.js";
 import styles from "./artist-list.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
 
-export class MPGArtistList extends HTMLElement {
+export class ArtistList extends HTMLElement {
 	constructor() {
 		super();
 		this.role = "list";
@@ -18,4 +18,4 @@ export class MPGArtistList extends HTMLElement {
 	}
 }
 
-customElements.define("artist-list", MPGArtistList);
+customElements.define("artist-list", ArtistList);

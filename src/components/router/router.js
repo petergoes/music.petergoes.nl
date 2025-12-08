@@ -1,9 +1,9 @@
 import { html } from "../../utils/html.js";
-import "../view-home/view-home.js";
-import "../view-albums/view-albums.js";
+import { AppViewHome } from "../view-home/view-home.js";
+import { MPGViewAlbums } from "../view-albums/view-albums.js";
 import { MPGViewAlbum } from "../view-album/view-album.js";
-import { MPGViewArtist } from "../view-artist/view-artist.js";
-import "../view-auth/view-auth.js";
+import { ViewArtist } from "../view-artist/view-artist.js";
+import { MPGViewAuth } from "../view-auth/view-auth.js";
 
 const homePattern = new URLPattern({ pathname: "/" });
 const artistPattern = new URLPattern({ pathname: "/artist/:id" });
@@ -18,7 +18,10 @@ const authCallbackPattern = new URLPattern({ pathname: "/auth/callback" });
  */
 const getId = (pattern, url) => pattern.exec(url)?.pathname?.groups?.id;
 
-export class MPGRouter extends HTMLElement {
+/** @type {AppViewHome} */
+let viewHome;
+
+export class AppRouter extends HTMLElement {
 	connectedCallback() {
 		this.updateRoute(new URL(location.pathname, location.origin));
 
@@ -33,9 +36,8 @@ export class MPGRouter extends HTMLElement {
 	updateRoute(url) {
 		switch (true) {
 			case homePattern.test(url):
-				this.innerHTML = html`
-					<mpg-view-home></mpg-view-home>
-				`;
+				viewHome = viewHome || new AppViewHome();
+				this.replaceChildren(viewHome);
 				break;
 
 			case albumsPattern.test(url):
@@ -52,7 +54,7 @@ export class MPGRouter extends HTMLElement {
 
 			case artistPattern.test(url):
 				this.replaceChildren(
-					new MPGViewArtist(getId(artistPattern, url)),
+					new ViewArtist(getId(artistPattern, url)),
 				);
 				break;
 
@@ -66,4 +68,4 @@ export class MPGRouter extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-router", MPGRouter);
+customElements.define("app-router", AppRouter);

@@ -1,24 +1,32 @@
 import "../devices/devices.js";
 import { hasAccessToken } from "../../spotify/refresh-token.js";
-import { MPGRouter } from "../router/router.js";
-import { MPGPlayer } from "../player/player.js";
-import { MPGSearch } from "../search/search.js";
+import { AppRouter } from "../router/router.js";
+import { AppPlayer } from "../player/player.js";
+import { AppHeader } from "../header/header.js";
+import { ArtistList } from "../artist-list/artist-list.js";
 
-export class MPGApp extends HTMLElement {
+import styles from "./app.css" with { type: "css" };
+document.adoptedStyleSheets.push(styles);
+
+export class AppRoot extends HTMLElement {
 	constructor() {
 		super();
 		hasAccessToken.then(() => {
-			const searchElement = new MPGSearch();
-			const playerElement = new MPGPlayer();
-			const routerElement = new MPGRouter();
+			const headerElement = new AppHeader();
+			const artistList = new ArtistList();
+			const routerElement = new AppRouter();
+			const playerElement = new AppPlayer();
 
-			this.appendChild(searchElement);
+			this.appendChild(headerElement);
+			this.appendChild(artistList);
 			this.appendChild(routerElement);
 			this.appendChild(playerElement);
 		});
 	}
-	connectedCallback() {
+
+	reloadArtistList() {
+		this.querySelector("artist-list")?.replaceWith(new ArtistList());
 	}
 }
 
-customElements.define("mpg-app", MPGApp);
+customElements.define("app-root", AppRoot);

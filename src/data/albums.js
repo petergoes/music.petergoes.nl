@@ -60,7 +60,8 @@ const storeAlbum = async (remoteAlbum) => {
 	await Promise.all([...artistPromises, ...trackPromises].flat());
 };
 
-export const loadSavedAlbums = async (endpoint) => {
+export const syncStoredAlbums = async (endpoint) => {
+	const localAlbums = await getAlbums();
 	const remoteAlbums = await apiCall(endpoint || `/me/albums`);
 
 	await Promise.all([
@@ -69,16 +70,15 @@ export const loadSavedAlbums = async (endpoint) => {
 		),
 	]);
 
-	const localAlbums = await getAlbums();
-
 	if (localAlbums.length < remoteAlbums.total) {
 		if (remoteAlbums.next) {
-			console.log("Loading next batch");
-			await loadSavedAlbums(remoteAlbums.next);
+			await syncStoredAlbums(remoteAlbums.next);
+			return true;
 		}
 	} else {
-		console.log(" - Total local  albums:", localAlbums.length);
-		console.log(" - Total remote albums:", remoteAlbums.total);
+		console.log("  - Total local albums: ", localAlbums.length);
+		console.log("  - Total remote albums:", remoteAlbums.total);
+		return false;
 	}
 };
 

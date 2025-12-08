@@ -69,3 +69,46 @@ export const getArtistsById = async (ids) => {
 		return result;
 	});
 };
+
+export const batchUpdateArtistImages = async () => {
+	const artists = await getArtists();
+
+	const artistWithoutImages = artists
+		.filter((artist) => Boolean(artist.images) === false)
+		.toSorted((a, b) => a.name.localeCompare(b.name));
+
+	if (artistWithoutImages.length === 0) return false;
+
+	const artistIdsWithoutImages = artistWithoutImages
+		.slice(0, 5)
+		.map((artist) => artist.id)
+		.join(",");
+
+	const remote = await apiCall(
+		`/artists?ids=${artistIdsWithoutImages}`,
+	);
+
+	/** @type {import("@types").Artist[]} */
+	const artistsToUpdate = remote.artists
+		.map((remoteArtist) => {
+			const localArtist = artists.find((artist) =>
+				artist.id === remoteArtist.id
+			);
+			if (!localArtist) return;
+
+			return { ...localArtist, images: remoteArtist.images };
+		})
+		.filter(Boolean);
+
+	const db = await getDatabase();
+	const tx = db.transaction("artists", "readwrite");
+	await Promise.all([
+		...artistsToUpdate.map((artist) => {
+			console.log("  - Update", artist.name);
+			tx.store.put(artist);
+		}),
+		tx.done,
+	]);
+
+	return true;
+};

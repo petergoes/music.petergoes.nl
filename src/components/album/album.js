@@ -30,7 +30,6 @@ export class MPGAlbum extends HTMLElement {
 		this.appendChild(trackListElement);
 
 		if (!album.images) {
-			console.log("no image");
 			updateAlbumImages(album.id)
 				.then((album) =>
 					image.src = album.images?.find((image) => image.width === 300)?.url ||

@@ -1,0 +1,41 @@
+view-artist {
+  display: block;
+  position: relative;
+
+  h1 {
+    max-width: calc(100% - calc(var(--space) * 4));
+    margin-inline: auto;
+    vertical-align: center;
+    min-height: 25dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+  }
+
+  .artist-image-cover,
+  .artist-image {
+    width: 100%;
+    aspect-ratio: 1;
+    min-height: 500px;
+    max-height: 75dvh;
+    object-fit: cover;
+    object-position: 50% 25%;
+    position: fixed;
+    display: block;
+    z-index: -1;
+  }
+
+  .artist-image-cover {
+    background: linear-gradient(180deg, transparent 0%, Canvas 100%);
+  }
+
+  .album-container {
+    display: grid;
+    gap: calc(var(--space) * 4);
+    max-width: calc(100% - calc(var(--space) * 4));
+    margin-inline: auto;
+    background-color: rgb(from Canvas r g b / 0.75);
+    padding: var(--space);
+  }
+}

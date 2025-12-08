@@ -3,4 +3,35 @@ artist-list-item {
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
+  padding: calc(var(--space) * 0.5);
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  img {
+    inline-size: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  img[src=""] {
+    opacity: 0;
+  }
+
+
+  @container --artist-list (width < 300px) {
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+
+    img {
+      width: 2lh;
+    }
+  }
+
 }

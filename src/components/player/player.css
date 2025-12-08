@@ -1,11 +1,10 @@
-mpg-player {
-  position: sticky;
+app-player {
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
   bottom: 0;
   inline-size: 100%;
-  block-size: 50px;
   background-color: Canvas;
+  margin-block-end: var(--space);
 }

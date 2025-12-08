@@ -2,6 +2,30 @@
   color-scheme: light dark;
 }
 
+@property --space {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
+
 body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  display: flex;
+  margin: 0;
+  height: 100dvh;
+  width: 100vw;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-block-start: 0;
+}
+
+@media (width >=768px) {
+  :root {
+    --space: 32px;
+  }
 }
