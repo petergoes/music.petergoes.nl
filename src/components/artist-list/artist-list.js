@@ -18,4 +18,4 @@ export class MPGArtistList extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-artist-list", MPGArtistList);
+customElements.define("artist-list", MPGArtistList);
