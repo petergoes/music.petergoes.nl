@@ -28,7 +28,7 @@ export class AlbumElement extends HTMLElement {
 		image.src = album.images?.find((image) => image.width === 300)?.url || "";
 
 		const playAlbumButton = document.createElement("button");
-		playAlbumButton.innerText = "play album";
+		playAlbumButton.ariaLabel = `play ${album.name}`;
 		playAlbumButton.onclick = () => this.onPlayAlbum();
 
 		const trackListElement = new TrackList(album.tracks);
