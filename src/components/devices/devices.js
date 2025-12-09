@@ -17,6 +17,7 @@ export class DevicesSelector extends HTMLElement {
 
 		const dialog = document.createElement("dialog");
 		dialog.id = "device-selector-dialog";
+		dialog.setAttribute("closeby", "any");
 
 		const select = document.createElement("select");
 		select.onchange = (event) => {
@@ -29,6 +30,8 @@ export class DevicesSelector extends HTMLElement {
 				setActiveDevice(newActiveDevice);
 				activeDeviceName.innerText = newActiveDevice.name;
 			}
+
+			dialog.close();
 		};
 
 		dialog.appendChild(select);
