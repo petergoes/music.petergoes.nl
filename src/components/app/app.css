@@ -8,7 +8,6 @@ app-root {
     "router"
     "player";
 
-  row-gap: var(--space);
 
   &>app-header {
     grid-area: header;

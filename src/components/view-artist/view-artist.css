@@ -4,6 +4,7 @@ view-artist {
 
   h1 {
     max-width: calc(100% - calc(var(--space) * 4));
+    margin-block-start: env(safe-area-inset-top);
     margin-inline: auto;
     vertical-align: center;
     min-height: 25dvh;

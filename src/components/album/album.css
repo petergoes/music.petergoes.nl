@@ -42,7 +42,7 @@ album-element {
       grid-template-areas:
         "title title"
         "button list";
-      grid-template-columns: minmax(300px, 500px) 400px;
+      grid-template-columns: minmax(200px, 500px) 400px;
       gap: 2rem;
       grid-template-rows: auto 1fr;
 

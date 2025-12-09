@@ -5,6 +5,10 @@
   "start_url": "/",
   "scope": "/",
   "id": "/",
+  "display_override": [
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#000000",

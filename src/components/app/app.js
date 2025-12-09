@@ -12,12 +12,10 @@ export class AppRoot extends HTMLElement {
 	constructor() {
 		super();
 		hasAccessToken.then(() => {
-			const headerElement = new AppHeader();
 			const artistList = new ArtistList();
 			const routerElement = new AppRouter();
 			const playerElement = new AppPlayer();
 
-			this.appendChild(headerElement);
 			this.appendChild(artistList);
 			this.appendChild(routerElement);
 			this.appendChild(playerElement);
