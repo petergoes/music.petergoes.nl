@@ -4,6 +4,7 @@ track-list-item {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  max-width: calc(100vw - (var(--space) * 8));
 
   &:first-of-type() {
     counter-reset: track-number;
