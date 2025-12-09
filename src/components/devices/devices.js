@@ -11,7 +11,12 @@ export class DevicesSelector extends HTMLElement {
 		/** @type {import("@types").Device[]} */
 		this.availableDevices;
 
-		const activeDeviceName = document.createElement("span");
+		const activeDeviceName = document.createElement("button");
+		activeDeviceName.setAttribute("commandfor", "device-selector-dialog");
+		activeDeviceName.command = "show-modal";
+
+		const dialog = document.createElement("dialog");
+		dialog.id = "device-selector-dialog";
 
 		const select = document.createElement("select");
 		select.onchange = (event) => {
@@ -26,7 +31,8 @@ export class DevicesSelector extends HTMLElement {
 			}
 		};
 
-		this.appendChild(select);
+		dialog.appendChild(select);
+		this.appendChild(dialog);
 		this.appendChild(activeDeviceName);
 
 		getAvailableDevices().then((devices) => {
