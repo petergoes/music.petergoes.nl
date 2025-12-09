@@ -1,4 +1,8 @@
-mpg-track-list {
+track-list {
   display: flex;
   flex-direction: column;
+
+  padding-inline: var(--space);
+  padding-block: var(--space);
+  background-color: rgb(from Canvas r g b / 0.75);
 }

@@ -1,7 +1,7 @@
 import { getAvailableDevices } from "../../data/devices.js";
 import { setActiveDevice } from "../../spotify/active-device.js";
 
-export class MPGDevices extends HTMLElement {
+export class DevicesSelector extends HTMLElement {
 	constructor() {
 		super();
 
@@ -47,4 +47,4 @@ export class MPGDevices extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-devices", MPGDevices);
+customElements.define("devices-selector", DevicesSelector);

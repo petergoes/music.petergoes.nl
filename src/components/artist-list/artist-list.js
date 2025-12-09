@@ -1,5 +1,5 @@
 import { getArtists } from "../../data/artists.js";
-import { MPGArtistListItem } from "../artist-list-item/artist-list-item.js";
+import { ArtistListItem } from "../artist-list-item/artist-list-item.js";
 
 import styles from "./artist-list.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
@@ -13,7 +13,7 @@ export class ArtistList extends HTMLElement {
 			.then((artists) => {
 				artists.toSorted((a, b) => a.name.localeCompare(b.name)).forEach((
 					artist,
-				) => this.appendChild(new MPGArtistListItem(artist)));
+				) => this.appendChild(new ArtistListItem(artist)));
 			});
 	}
 }

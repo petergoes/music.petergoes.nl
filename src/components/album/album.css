@@ -1,0 +1,61 @@
+album-element {
+  container-type: inline-size;
+  container-name: album-element;
+  display: flex;
+
+  .content {
+    position: relative;
+    z-index: 0;
+    flex-basis: 100%;
+
+    display: grid;
+    grid-template-columns: var(--space) 1fr var(--space);
+    grid-template-areas:
+      "title title  title"
+      ".     button ."
+      ".     list   .";
+
+    &>h2 {
+      grid-area: title;
+    }
+
+    &>img {
+      width: 100%;
+      z-index: -1;
+      grid-column: 1 / -1;
+      grid-row: 2 / span 2;
+    }
+
+    &>button {
+      background-color: transparent;
+      border: transparent;
+      grid-area: button;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+    }
+
+    &>track-list {
+      grid-area: list;
+    }
+
+    @container album-element (width > 600px) {
+      grid-template-areas:
+        "title title"
+        "button list";
+      grid-template-columns: minmax(300px, 500px) 400px;
+      gap: 2rem;
+      grid-template-rows: auto 1fr;
+
+
+      &>img {
+        position: relative;
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      &>button {
+        aspect-ratio: 1;
+      }
+    }
+  }
+}

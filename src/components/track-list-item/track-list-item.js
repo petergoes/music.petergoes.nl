@@ -1,21 +1,23 @@
 import { play } from "../../spotify/player.js";
 
-export class MPGTrackListItem extends HTMLElement {
+import styles from "./track-list-item.css" with { type: "css" };
+document.adoptedStyleSheets.push(styles);
+
+export class TrackListItem extends HTMLElement {
 	/** @param {import("@types").Track} track */
 	constructor(track) {
 		super();
 		this.role = "listitem";
 		this.track = track;
 
-		const playbutton = document.createElement("button");
-		playbutton.innerText = "play";
-		playbutton.onclick = () => this.handleOnPlay();
-
 		const trackName = document.createElement("span");
 		trackName.innerText = track.name;
 		this.setAttribute("track-name", track.name.toLowerCase());
 
-		this.appendChild(playbutton);
+		if (track.disk_number) {
+			this.setAttribute("disk-number", track.disk_number);
+		}
+
 		this.appendChild(trackName);
 	}
 
@@ -26,4 +28,4 @@ export class MPGTrackListItem extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-track-list-item", MPGTrackListItem);
+customElements.define("track-list-item", TrackListItem);

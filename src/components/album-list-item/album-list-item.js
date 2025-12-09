@@ -1,7 +1,7 @@
 import { getArtistsById } from "../../data/artists.js";
 import { play } from "../../spotify/player.js";
 
-export class MPGAlbumListItem extends HTMLElement {
+export class AlbumListItem extends HTMLElement {
 	/** @param {import("@types").Album} album */
 	constructor(album) {
 		super();
@@ -37,4 +37,4 @@ export class MPGAlbumListItem extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-album-list-item", MPGAlbumListItem);
+customElements.define("album-list-item", AlbumListItem);

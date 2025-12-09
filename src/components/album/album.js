@@ -1,8 +1,14 @@
 import { updateAlbumImages } from "../../data/albums.js";
 import { play } from "../../spotify/player.js";
-import { MPGTrackList } from "../track-list/track-list.js";
+import { TrackList } from "../track-list/track-list.js";
 
-export class MPGAlbum extends HTMLElement {
+import styles from "./album.css" with { type: "css" };
+document.adoptedStyleSheets.push(styles);
+
+export class AlbumElement extends HTMLElement {
+	/** @type {HTMLDivElement} */
+	#content;
+
 	/** @param {import("@types").Album} album */
 	constructor(album) {
 		super();
@@ -10,24 +16,27 @@ export class MPGAlbum extends HTMLElement {
 		this.setAttribute("album-title", album.name.toLowerCase());
 		this.id = album.id;
 
+		this.#content = document.createElement("div");
+		this.#content.classList.add("content");
+		this.appendChild(this.#content);
+
 		const titleElement = document.createElement("h2");
 		titleElement.innerText = album.name;
 
 		const image = document.createElement("img");
 		image.width = 300;
-		image.height = 300;
 		image.src = album.images?.find((image) => image.width === 300)?.url || "";
 
 		const playAlbumButton = document.createElement("button");
 		playAlbumButton.innerText = "play album";
 		playAlbumButton.onclick = () => this.onPlayAlbum();
 
-		const trackListElement = new MPGTrackList(album.tracks);
+		const trackListElement = new TrackList(album.tracks);
 
-		this.appendChild(titleElement);
-		this.appendChild(image);
-		this.appendChild(playAlbumButton);
-		this.appendChild(trackListElement);
+		this.#content.appendChild(titleElement);
+		this.#content.appendChild(image);
+		this.#content.appendChild(playAlbumButton);
+		this.#content.appendChild(trackListElement);
 
 		if (!album.images) {
 			updateAlbumImages(album.id)
@@ -45,4 +54,4 @@ export class MPGAlbum extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-album", MPGAlbum);
+customElements.define("album-element", AlbumElement);

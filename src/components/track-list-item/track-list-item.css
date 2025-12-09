@@ -1,0 +1,20 @@
+track-list-item {
+  display: block;
+  counter-increment: track-number;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  &:first-of-type() {
+    counter-reset: track-number;
+  }
+
+  &:before {
+    content: counter(track-number);
+    padding-inline-end: 0.5em;
+    display: inline-block;
+    width: 2ch;
+    text-align: end;
+    font-family: monospace;
+  }
+}

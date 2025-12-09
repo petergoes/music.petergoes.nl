@@ -1,8 +1,8 @@
 import { getAlbum } from "../../data/albums.js";
 import { getArtistsById } from "../../data/artists.js";
-import { MPGTrackList } from "../track-list/track-list.js";
+import { TrackList } from "../track-list/track-list.js";
 
-export class MPGViewAlbum extends HTMLElement {
+export class ViewAlbum extends HTMLElement {
 	/** @param {import("@types").Album['id'] | undefined} albumId */
 	constructor(albumId) {
 		super();
@@ -21,7 +21,7 @@ export class MPGViewAlbum extends HTMLElement {
 			getAlbum(albumId).then((album) => {
 				albumTitleElement.innerText = album.name;
 
-				const trackListElement = new MPGTrackList(album.tracks);
+				const trackListElement = new TrackList(album.tracks);
 				this.appendChild(trackListElement);
 
 				getArtistsById(album.artists).then((artists) =>
@@ -33,4 +33,4 @@ export class MPGViewAlbum extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-view-album", MPGViewAlbum);
+customElements.define("view-album", ViewAlbum);

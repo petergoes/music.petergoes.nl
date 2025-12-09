@@ -1,6 +1,6 @@
 import { html } from "../../utils/html.js";
 
-export class MPGMainNav extends HTMLElement {
+export class MainNav extends HTMLElement {
 	connectedCallback() {
 		this.innerHTML = html`
 			<h2>navigation</h2>
@@ -15,4 +15,4 @@ export class MPGMainNav extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-main-nav", MPGMainNav);
+customElements.define("main-nav", MainNav);

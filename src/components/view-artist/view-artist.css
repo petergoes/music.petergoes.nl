@@ -33,8 +33,8 @@ view-artist {
   .album-container {
     display: grid;
     gap: calc(var(--space) * 4);
-    max-width: calc(100% - calc(var(--space) * 4));
-    margin-inline: auto;
+    max-width: min(calc(100% - calc(var(--space) * 4)), calc(500px + 400px + var(--space)));
+    margin-inline-start: var(--space);
     background-color: rgb(from Canvas r g b / 0.75);
     padding: var(--space);
   }

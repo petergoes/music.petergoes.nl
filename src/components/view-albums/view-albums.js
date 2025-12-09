@@ -1,7 +1,7 @@
 import { getAlbums } from "../../data/albums.js";
-import { MPGAlbumList } from "../album-list/album-list.js";
+import { AlbumList } from "../album-list/album-list.js";
 
-export class MPGViewAlbums extends HTMLElement {
+export class ViewAlbums extends HTMLElement {
 	constructor() {
 		super();
 
@@ -10,8 +10,8 @@ export class MPGViewAlbums extends HTMLElement {
 
 		this.appendChild(title);
 
-		getAlbums().then((albums) => this.appendChild(new MPGAlbumList(albums)));
+		getAlbums().then((albums) => this.appendChild(new AlbumList(albums)));
 	}
 }
 
-customElements.define("mpg-view-albums", MPGViewAlbums);
+customElements.define("view-albums", ViewAlbums);

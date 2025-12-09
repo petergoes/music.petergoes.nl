@@ -1,6 +1,6 @@
 import { getArtist, updateArtistImages } from "../../data/artists.js";
 import { getAlbumsById } from "../../data/albums.js";
-import { MPGAlbum } from "../album/album.js";
+import { AlbumElement } from "../album/album.js";
 
 import styles from "./view-artist.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
@@ -44,7 +44,7 @@ export class ViewArtist extends HTMLElement {
 				})
 				.then((albums) => {
 					albums.forEach((album) =>
-						albumContainer.appendChild(new MPGAlbum(album))
+						albumContainer.appendChild(new AlbumElement(album))
 					);
 				});
 		}

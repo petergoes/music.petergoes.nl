@@ -2,7 +2,7 @@ import { html } from "../../utils/html.js";
 import { authenticate } from "../../spotify/authenticate.js";
 import { handleCallback } from "../../spotify/handle-callback.js";
 
-export class MPGViewAuth extends HTMLElement {
+export class ViewAuth extends HTMLElement {
 	connectedCallback() {
 		console.log("auth");
 		let title;
@@ -24,4 +24,4 @@ export class MPGViewAuth extends HTMLElement {
 	}
 }
 
-customElements.define("mpg-view-auth", MPGViewAuth);
+customElements.define("view-auth", ViewAuth);

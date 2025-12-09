@@ -1,5 +1,5 @@
 import { pause, play } from "../../spotify/player.js";
-import { MPGDevices } from "../devices/devices.js";
+import { DevicesSelector } from "../devices/devices.js";
 
 import styles from "./player.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
@@ -16,7 +16,7 @@ export class AppPlayer extends HTMLElement {
 		pauseButton.innerText = "Pause";
 		pauseButton.onclick = this.handleOnPause;
 
-		const devices = new MPGDevices();
+		const devices = new DevicesSelector();
 
 		this.appendChild(playButton);
 		this.appendChild(pauseButton);

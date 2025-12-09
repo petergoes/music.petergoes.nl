@@ -1,10 +1,10 @@
 import { getAlbum } from "../../data/albums.js";
-import { MPGAlbumListItem } from "../album-list-item/album-list-item.js";
+import { AlbumListItem } from "../album-list-item/album-list-item.js";
 
 import styles from "./album-list.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
 
-export class MPGAlbumList extends HTMLElement {
+export class AlbumList extends HTMLElement {
 	/** @param {import("@types").Album[] | import("@types").Album['id'][]} albums */
 	constructor(albums) {
 		super();
@@ -17,11 +17,11 @@ export class MPGAlbumList extends HTMLElement {
 		).then((albums) =>
 			albums.toSorted((a, b) => b.release_date - a.release_date).forEach(
 				(album) => {
-					this.appendChild(new MPGAlbumListItem(album));
+					this.appendChild(new AlbumListItem(album));
 				},
 			)
 		);
 	}
 }
 
-customElements.define("mpg-album-list", MPGAlbumList);
+customElements.define("album-list", AlbumList);

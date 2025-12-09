@@ -1,7 +1,7 @@
 import styles from "./artist-list-item.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
 
-export class MPGArtistListItem extends HTMLElement {
+export class ArtistListItem extends HTMLElement {
 	/** @type {HTMLAnchorElement} */
 	#titleElement;
 
@@ -34,4 +34,4 @@ export class MPGArtistListItem extends HTMLElement {
 	}
 }
 
-customElements.define("artist-list-item", MPGArtistListItem);
+customElements.define("artist-list-item", ArtistListItem);
