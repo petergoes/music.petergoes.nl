@@ -2,7 +2,7 @@ artist-list-item {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: start;
   padding: calc(var(--space) * 0.5);
 
   a {
