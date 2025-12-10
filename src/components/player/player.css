@@ -11,6 +11,7 @@ app-player {
   padding-inline: var(--space);
   box-sizing: border-box;
   justify-content: space-between;
+  align-items: flex-end;
 
   button {
     padding-inline: 0.75em;
