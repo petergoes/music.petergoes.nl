@@ -6,6 +6,9 @@ import {
 import { effect } from "@preact/signals-core";
 import { transfer } from "../../spotify/player.js";
 
+import styles from "./devices.css" with { type: "css" };
+document.adoptedStyleSheets.push(styles);
+
 export class DevicesSelector extends HTMLElement {
 	/** @type {HTMLSelectElement} */
 	#select;
@@ -15,6 +18,13 @@ export class DevicesSelector extends HTMLElement {
 
 		this.#select = document.createElement("select");
 		this.#select.onchange = this.changePlayer;
+
+		const icon = document.createElement("img");
+		icon.width = 24;
+		icon.height = 24;
+		icon.src = "/icons/shareplay.svg";
+
+		this.appendChild(icon);
 		this.appendChild(this.#select);
 
 		getAvailableDevices();

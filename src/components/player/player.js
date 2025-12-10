@@ -1,16 +1,17 @@
 import { pause, play } from "../../spotify/player.js";
 import { DevicesSelector } from "../devices/devices.js";
 import { getPlaybackState, playbackState } from "../../data/devices.js";
+import { PlayerButton } from "../player-button/player-button.js";
 import { effect } from "@preact/signals-core";
 
 import styles from "./player.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
 
 export class AppPlayer extends HTMLElement {
-	/** @type {HTMLButtonElement} */
+	/** @type {PlayerButton} */
 	#playButton;
 
-	/** @type {HTMLButtonElement} */
+	/** @type {PlayerButton} */
 	#pauseButton;
 
 	/** @type {HTMLProgressElement} */
@@ -25,14 +26,25 @@ export class AppPlayer extends HTMLElement {
 	constructor() {
 		super();
 
+		const filler = document.createElement("img");
+		filler.width = 44;
+		filler.height = 44;
+		filler.src = "/icons/background.svg";
+		filler.classList.add("filler");
+		this.appendChild(filler);
+
 		this.#container = document.createElement("div");
 		this.#container.classList.add("action-container");
 
-		this.#playButton = document.createElement("button");
+		this.#playButton = new PlayerButton();
+		this.#playButton.icon = "play";
+		this.#playButton.iconOnly = true;
 		this.#playButton.innerText = "Play";
 		this.#playButton.onclick = this.handleOnPlay;
 
-		this.#pauseButton = document.createElement("button");
+		this.#pauseButton = new PlayerButton();
+		this.#pauseButton.icon = "pause";
+		this.#pauseButton.iconOnly = true;
 		this.#pauseButton.innerText = "Pause";
 		this.#pauseButton.onclick = this.handleOnPause;
 
