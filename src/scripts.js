@@ -13,6 +13,7 @@ import { syncStoredAlbums } from "./data/albums.js";
 import { authenticate } from "./spotify/authenticate.js";
 import { handleCallback } from "./spotify/handle-callback.js";
 import { getRefreshToken } from "./spotify/refresh-token.js";
+import { setupWebPlayer } from "./spotify/web-player.js";
 import { batchUpdateArtistImages } from "./data/artists.js";
 
 console.log("Music Peter Goes");
@@ -24,6 +25,8 @@ if (location.pathname === "/auth") {
 } else {
 	await getRefreshToken();
 	console.log("> Spotify authenticated");
+
+	setupWebPlayer();
 
 	await getDatabase();
 	console.log("> Database ready");

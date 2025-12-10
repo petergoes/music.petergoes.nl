@@ -1,6 +1,7 @@
 export const clientId = "bd380eb281e54a3ea2232f198513736e";
 export const redirectUri = `${window.location.origin}/auth/callback`;
 export const scope = [
+	"streaming",
 	"user-read-private",
 	"user-read-playback-state",
 	"user-modify-playback-state",
