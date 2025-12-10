@@ -40,7 +40,7 @@ export const getPlaybackState = async () => {
 	/** @type {import("@types").PlaybackState} */
 	const state = await apiCall("/me/player");
 
-	const { device } = state;
+	const { device } = state || {};
 	if (device) {
 		activeDevice.value = device;
 	}
