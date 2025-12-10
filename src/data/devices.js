@@ -1,6 +1,49 @@
 import { apiCall } from "../spotify/api-call.js";
+import { Signal, signal } from "@preact/signals-core";
 
-/** @returns {Promise<import("@types").Device[]>} */
+/** @type {Signal<string | undefined>} */
+export const localWebPlayerDeviceId = signal();
+
+/** @type {Signal<import("@types").Device | undefined>} */
+export const activeDevice = signal();
+
+/** @type {Signal<import("@types").Device[] | undefined>} */
+export const availableDevices = signal();
+
+/** @type {Signal<import("@types").PlaybackState | undefined>} */
+export const playbackState = signal();
+
 export const getAvailableDevices = () => {
-	return apiCall("/me/player/devices").then((result) => result.devices);
+	apiCall("/me/player/devices")
+		.then(({ devices }) => {
+			/** @type {import("@types").Device[]} */
+			const filteredDevices = devices
+				.filter(({ name, id }) =>
+					name !== "Web Player" ||
+					id === localWebPlayerDeviceId.peek()
+				)
+				.map((device) => ({
+					...device,
+					is_local_web_player: device.id === localWebPlayerDeviceId.peek(),
+				}));
+
+			const currentlyActiveDevice = filteredDevices.find((device) =>
+				device.is_active
+			);
+
+			activeDevice.value = currentlyActiveDevice || activeDevice.peek();
+			availableDevices.value = filteredDevices;
+		});
+};
+
+export const getPlaybackState = async () => {
+	/** @type {import("@types").PlaybackState} */
+	const state = await apiCall("/me/player");
+
+	const { device } = state;
+	if (device) {
+		activeDevice.value = device;
+	}
+
+	playbackState.value = state;
 };

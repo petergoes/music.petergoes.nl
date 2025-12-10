@@ -61,15 +61,52 @@
  */
 
 /**
- * @typedef Device          {Object}
- * @prop id                 {string}
- * @prop is_active          {boolean}
- * @prop is_private_session {boolean}
- * @prop is_restricted      {boolean}
- * @prop name               {string}
- * @prop type               {string}
- * @prop volume_percent     {number}
- * @prop supports_volume    {boolean}
+ * @typedef Device           {Object}
+ * @prop id                  {string}
+ * @prop is_active           {boolean}
+ * @prop is_private_session  {boolean}
+ * @prop is_restricted       {boolean}
+ * @prop is_local_web_player {boolean}
+ * @prop name                {string}
+ * @prop type                {string}
+ * @prop volume_percent      {number}
+ * @prop supports_volume     {boolean}
+ */
+
+/**
+ * @typedef ContextPlayback {Object}
+ * @prop type          {'artist' | 'playlist' | 'album' | 'show'}
+ * @prop href          {string} - A link to the Web API endpoint providing full details of the track.
+ * @prop external_urls {string[]} - External URLs for this context.
+ * @prop uri           {string}
+ */
+
+/**
+ * @typedef PlaybackActions        {Object}
+ * @prop [interrupting_playback]   {boolean}
+ * @prop [pausing]                 {boolean}
+ * @prop [resuming]                {boolean}
+ * @prop [seeking]                 {boolean}
+ * @prop [skipping_next]           {boolean}
+ * @prop [skipping_prev]           {boolean}
+ * @prop [toggling_repeat_context] {boolean}
+ * @prop [toggling_shuffle]        {boolean}
+ * @prop [toggling_repeat_track]   {boolean}
+ * @prop [transferring_playback]   {boolean}
+ */
+
+/**
+ * @typedef PlaybackState       {Object}
+ * @prop device                 {Device}
+ * @prop repeat_state           {'off' | 'track' | 'context'}
+ * @prop shuffle_state          {Boolean}
+ * @prop context                {ContextPlayback | null}
+ * @prop timestamp              {number} - Unix Millisecond Timestamp when playback state was last changed (play, pause, skip, scrub, new song, etc.).
+ * @prop progress_ms            {number | null} - Progress into the currently playing track or episode.
+ * @prop is_playing             {boolean}
+ * @prop item                   {Track}
+ * @prop currently_playing_type {'track' | 'episode' | 'ad' | 'unknown'}
+ * @prop actions                {PlaybackActions}
  */
 
 export {};

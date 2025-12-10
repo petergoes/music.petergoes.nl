@@ -1,3 +1,8 @@
+import {
+	getAvailableDevices,
+	localWebPlayerDeviceId,
+} from "../data/devices.js";
+
 export const setupWebPlayer = () => {
 	const accessToken = localStorage.getItem("access_token");
 
@@ -22,13 +27,12 @@ export const setupWebPlayer = () => {
 
 		player.addListener("ready", ({ device_id }) => {
 			console.log("> Web Player Ready with Device ID", device_id);
-
-			document.querySelector("devices-selector")?.updateDevicesList();
+			localWebPlayerDeviceId.value = device_id;
+			getAvailableDevices();
 		});
 
 		player.addListener("not_ready", ({ device_id }) => {
 			console.log("> !Web player has gone offline", device_id);
-			document.querySelector("devices-selector")?.updateDevicesList();
 		});
 
 		player.connect();

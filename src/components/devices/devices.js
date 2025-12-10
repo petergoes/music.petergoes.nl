@@ -1,65 +1,69 @@
-import { getAvailableDevices } from "../../data/devices.js";
-import { setActiveDevice } from "../../spotify/active-device.js";
+import {
+	activeDevice,
+	availableDevices,
+	getAvailableDevices,
+} from "../../data/devices.js";
+import { effect } from "@preact/signals-core";
+import { transfer } from "../../spotify/player.js";
 
 export class DevicesSelector extends HTMLElement {
-	/** @type {HTMLButtonElement} */
-	#activeDeviceName;
-
 	/** @type {HTMLSelectElement} */
 	#select;
 
 	constructor() {
 		super();
 
-		/** @type {import("@types").Device} */
-		this.activeDevice;
-
-		/** @type {import("@types").Device[]} */
-		this.availableDevices;
-
-		this.#activeDeviceName = document.createElement("button");
-		this.#activeDeviceName.setAttribute("commandfor", "device-selector-dialog");
-		this.#activeDeviceName.command = "show-modal";
-
-		const dialog = document.createElement("dialog");
-		dialog.id = "device-selector-dialog";
-		dialog.setAttribute("closeby", "any");
-
 		this.#select = document.createElement("select");
-		this.#select.onchange = (event) => {
-			const value = event.target.value;
+		this.#select.onchange = this.changePlayer;
+		this.appendChild(this.#select);
 
-			const newActiveDevice = this.availableDevices.find((device) =>
-				device.id === value
-			);
-			if (newActiveDevice) {
-				setActiveDevice(newActiveDevice);
-				this.#activeDeviceName.innerText = newActiveDevice.name;
-			}
+		getAvailableDevices();
 
-			dialog.close();
-		};
+		effect(this.updateOptions);
 
-		dialog.appendChild(this.#select);
-		this.appendChild(dialog);
-		this.appendChild(this.#activeDeviceName);
+		// Set active device value
+		effect(() => {
+			this.#select
+				.querySelectorAll("option")
+				.forEach((option) =>
+					option.selected = option.value === activeDevice?.value?.id
+				);
+		});
 	}
 
-	updateDevicesList = () => {
-		getAvailableDevices().then((devices) => {
-			this.availableDevices = devices;
-			this.activeDevice = devices[0];
-			setActiveDevice(this.activeDevice);
-			this.#activeDeviceName.innerText = this.activeDevice.name;
+	/** @param {Event} event */
+	changePlayer = (event) => {
+		console.log("> Transfer playback to:", event.target.value);
+		const deviceId = event.target.value;
+		transfer(deviceId);
+	};
 
-			this.#select.innerHTML = "";
+	// update device list options
+	updateOptions = () => {
+		console.log("update options");
+		const devices = availableDevices.value || [];
+		const deviceIds = devices.map((device) => device.id);
 
-			devices.map((device) => {
+		const options = Array.from(this.#select.querySelectorAll("option"));
+
+		// remove obsolete items
+		options.forEach((option) => {
+			if (deviceIds.includes(option.value) === false) {
+				option.remove();
+			}
+		});
+
+		devices.forEach((device) => {
+			const existingOption = options.find((option) =>
+				option.value === device.id
+			);
+			if (Boolean(existingOption) === false) {
 				const option = document.createElement("option");
 				option.value = device.id;
 				option.innerText = device.name;
+
 				this.#select.appendChild(option);
-			});
+			}
 		});
 	};
 }

@@ -15,4 +15,9 @@ app-player {
     border-radius: 12px;
     border-color: transparent;
   }
+
+  .action-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
