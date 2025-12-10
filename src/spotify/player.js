@@ -1,6 +1,7 @@
 import { apiCall } from "./api-call.js";
 import {
 	activeDevice,
+	availableDevices,
 	getAvailableDevices,
 	getPlaybackState,
 } from "../data/devices.js";
@@ -11,7 +12,7 @@ import {
  * @param {string | null} [options.context_uri]
  */
 export const play = async ({ context_uri, uris } = {}) => {
-	const device = activeDevice.peek();
+	const device = activeDevice.peek() || availableDevices.peek()?.[0];
 	const endpoint = device?.id
 		? `/me/player/play?device_id=${device.id}`
 		: "/me/player/play";
@@ -24,14 +25,14 @@ export const play = async ({ context_uri, uris } = {}) => {
 		body: JSON.stringify({ context_uri, uris }),
 	});
 
-	getPlaybackState();
+	setTimeout(getPlaybackState, 1000);
 };
 
 export const pause = async () => {
 	await apiCall("/me/player/pause", {
 		method: "put",
 	});
-	getPlaybackState();
+	setTimeout(getPlaybackState, 1000);
 };
 
 /** @param {import("@types").Device['id']} deviceId */

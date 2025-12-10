@@ -40,7 +40,6 @@ export class DevicesSelector extends HTMLElement {
 
 	// update device list options
 	updateOptions = () => {
-		console.log("update options");
 		const devices = availableDevices.value || [];
 		const deviceIds = devices.map((device) => device.id);
 
