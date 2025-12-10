@@ -3,6 +3,8 @@ import { ViewAlbums } from "../view-albums/view-albums.js";
 import { ViewAlbum } from "../view-album/view-album.js";
 import { ViewArtist } from "../view-artist/view-artist.js";
 import { ViewAuth } from "../view-auth/view-auth.js";
+import { currentUrl } from "../../utils/click-interceptor.js";
+import { effect } from "@preact/signals-core";
 
 const homePattern = new URLPattern({ pathname: "/" });
 const artistPattern = new URLPattern({ pathname: "/artist/:id" });
@@ -17,17 +19,10 @@ const authCallbackPattern = new URLPattern({ pathname: "/auth/callback" });
  */
 const getId = (pattern, url) => pattern.exec(url)?.pathname?.groups?.id;
 
-/** @type {AppViewHome} */
-let viewHome;
-
 export class AppRouter extends HTMLElement {
 	connectedCallback() {
-		this.updateRoute(new URL(location.pathname, location.origin));
-
-		navigation.addEventListener("navigate", (event) => {
-			event.intercept();
-			const destination = new URL(event.destination.url);
-			this.updateRoute(destination);
+		effect(() => {
+			this.updateRoute(currentUrl.value);
 		});
 	}
 

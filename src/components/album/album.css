@@ -9,7 +9,7 @@ album-element {
     flex-basis: 100%;
 
     display: grid;
-    grid-template-columns: var(--space) 1fr var(--space);
+    /* grid-template-columns: var(--space) 1fr var(--space); */
     grid-template-areas:
       "title title  title"
       ".     button ."

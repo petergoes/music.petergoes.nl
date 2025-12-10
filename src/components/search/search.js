@@ -1,3 +1,5 @@
+import { currentUrl } from "../../utils/click-interceptor.js";
+
 const searchSheet = new CSSStyleSheet();
 document.adoptedStyleSheets.push(searchSheet);
 
@@ -29,12 +31,11 @@ export class AppSearch extends HTMLElement {
 
 	connectedCallback() {
 		document.addEventListener("keydown", this.onShowModal);
-		navigation.addEventListener("navigate", this.resetForm);
+		currentUrl.subscribe(this.resetForm);
 	}
 
 	disconnectedCallback() {
 		document.removeEventListener("keydown", this.onShowModal);
-		navigation.removeEventListener("navigate", this.resetForm);
 	}
 
 	resetForm = () => {

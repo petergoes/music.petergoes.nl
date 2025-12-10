@@ -6,6 +6,7 @@ import "./components/player/player.js";
 import "./components/router/router.js";
 import "./components/track-list-item/track-list-item.js";
 import "./components/track-list/track-list.js";
+import "./utils/click-interceptor.js";
 
 import { getDatabase } from "./data/idb.js";
 import { syncStoredAlbums } from "./data/albums.js";

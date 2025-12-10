@@ -19,7 +19,11 @@ export const apiCall = (endpoint, init = {}) => {
 
 	const url = new URL(endpointToLoad, origin);
 
-	return fetch(url, { ...requestInit, headers }).then((response) => {
+	return fetch(url, { ...requestInit, headers }).then(async (response) => {
+		if (response.status > 299) {
+			const json = await response.json();
+			alert(json.message);
+		}
 		if (response.headers.get("Content-Type")?.includes("application/json")) {
 			return response.json();
 		}
