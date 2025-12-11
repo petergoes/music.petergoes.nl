@@ -5,6 +5,7 @@ import {
 	getAvailableDevices,
 	getPlaybackState,
 } from "../data/devices.js";
+import { removeAlbum } from "../data/albums.js";
 
 /**
  * @param {object} options
@@ -52,4 +53,15 @@ export const transfer = async (deviceId) => {
 	});
 
 	getAvailableDevices();
+};
+
+/** @param {import("@types").Album} album */
+export const removeAlbumFromOrigin = async (album) => {
+	console.log("^ Removing album:", album.name);
+	await apiCall(`/me/albums?ids=${album.id}`, {
+		method: "delete",
+	}).then(() => {
+		console.log("| Album removed from origin");
+		return removeAlbum(album);
+	});
 };

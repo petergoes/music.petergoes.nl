@@ -19,3 +19,11 @@ export const getTrack = async (id) => {
 	const tx = db.transaction("tracks", "readwrite");
 	return tx.store.get(id);
 };
+
+/** @param {import("@types").Track['id']} id */
+export const removeTrack = async (id) => {
+	console.log("| Remove track from db:", id);
+	const db = await getDatabase();
+	const tx = db.transaction("tracks", "readwrite");
+	return Promise.all([tx.store.delete(id), tx.done]);
+};

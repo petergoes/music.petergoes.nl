@@ -6,5 +6,6 @@ export const scope = [
 	"user-read-playback-state",
 	"user-modify-playback-state",
 	"user-library-read",
+	"user-library-modify",
 ];
 export const authUrl = new URL("https://accounts.spotify.com/authorize");

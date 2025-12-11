@@ -1,0 +1,9 @@
+view-album {
+  height: 100%;
+  display: flex;
+
+  album-element {
+    flex: 1;
+    margin-block-start: var(--space);
+  }
+}

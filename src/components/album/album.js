@@ -1,5 +1,6 @@
 import { updateAlbumImages } from "../../data/albums.js";
 import { play } from "../../spotify/player.js";
+import { AlbumActions } from "../album-actions/album-actions.js";
 import { TrackList } from "../track-list/track-list.js";
 
 import styles from "./album.css" with { type: "css" };
@@ -8,6 +9,9 @@ document.adoptedStyleSheets.push(styles);
 export class AlbumElement extends HTMLElement {
 	/** @type {HTMLDivElement} */
 	#content;
+
+	/** @type {AlbumActions} */
+	#actions;
 
 	/** @param {import("@types").Album} album */
 	constructor(album) {
@@ -33,6 +37,8 @@ export class AlbumElement extends HTMLElement {
 
 		const trackListElement = new TrackList(album.tracks);
 
+		this.#actions = new AlbumActions(album);
+		this.#content.appendChild(this.#actions);
 		this.#content.appendChild(titleElement);
 		this.#content.appendChild(image);
 		this.#content.appendChild(playAlbumButton);

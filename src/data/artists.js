@@ -20,6 +20,29 @@ export const storeArtist = async (artist) => {
 };
 
 /**
+ * @param {import("@types").Artist['id']} artistId
+ * @param {import("@types").Album['id']} albumId
+ */
+export const removeAlbumFromArtist = async (artistId, albumId) => {
+	console.log("| Remove album from artist", artistId, albumId);
+	const artist = await getArtist(artistId);
+
+	const updatedArtist = {
+		...artist,
+		albums: artist.albums.filter((id) => id !== albumId),
+	};
+
+	const db = await getDatabase();
+	const tx = db.transaction("artists", "readwrite");
+	if (updatedArtist.albums.length === 0) {
+		console.log("| - Artist has no more albums, deleting artist");
+		return Promise.all([tx.store.delete(artistId), tx.done]);
+	} else {
+		return Promise.all([tx.store.put(updatedArtist), tx.done]);
+	}
+};
+
+/**
  * @param {import("@types").Artist['id']} id
  * @returns {Promise<import("@types").Artist>}
  */

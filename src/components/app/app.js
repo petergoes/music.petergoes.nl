@@ -4,6 +4,7 @@ import { AppRouter } from "../router/router.js";
 import { AppPlayer } from "../player/player.js";
 import { AppSearch } from "../search/search.js";
 import { ArtistList } from "../artist-list/artist-list.js";
+import { AlbumList } from "../album-list/album-list.js";
 
 import styles from "./app.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
@@ -13,12 +14,14 @@ export class AppRoot extends HTMLElement {
 		super();
 
 		hasAccessToken.then(() => {
-			const artistList = new ArtistList();
+			// const artistList = new ArtistList();
+			const albumList = new AlbumList();
 			const routerElement = new AppRouter();
 			const playerElement = new AppPlayer();
 			const searchElement = new AppSearch();
 
-			this.appendChild(artistList);
+			// this.appendChild(artistList);
+			this.appendChild(albumList);
 			this.appendChild(routerElement);
 			this.appendChild(playerElement);
 			this.appendChild(searchElement);

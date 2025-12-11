@@ -8,6 +8,8 @@ export class ArtistList extends HTMLElement {
 	constructor() {
 		super();
 		this.role = "list";
+		this.tabIndex = 0;
+		this.focus();
 
 		getArtists()
 			.then((artists) => {

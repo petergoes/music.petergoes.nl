@@ -13,8 +13,9 @@ app-root {
     grid-area: header;
   }
 
+  &>album-list,
   &>artist-list {
-    grid-area: artist-list;
+    grid-area: collection;
     display: none;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -36,11 +37,12 @@ app-root {
   app-root {
     grid-template-areas:
       "header header"
-      "artist-list router"
+      "collection router"
       "player player";
 
     grid-template-columns: 360px 1fr;
 
+    &>album-list,
     &>artist-list {
       --artist-list-item-min-width: 200px;
       display: grid;
@@ -52,7 +54,7 @@ app-root {
 app-root:has(app-view-home) {
   grid-template-areas:
     "header"
-    "artist-list"
+    "collection"
     "player";
   grid-template-columns: 1fr;
 
@@ -60,6 +62,7 @@ app-root:has(app-view-home) {
     display: none;
   }
 
+  &>album-list,
   &>artist-list {
     display: grid;
   }

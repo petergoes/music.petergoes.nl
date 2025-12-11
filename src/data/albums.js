@@ -1,7 +1,7 @@
 import { apiCall } from "../spotify/api-call.js";
 import { getDatabase } from "./idb.js";
-import { storeArtist } from "./artists.js";
-import { storeTrack } from "./tracks.js";
+import { removeAlbumFromArtist, storeArtist } from "./artists.js";
+import { removeTrack, storeTrack } from "./tracks.js";
 
 const storeAlbum = async (remoteAlbum) => {
 	const db = await getDatabase();
@@ -58,6 +58,24 @@ const storeAlbum = async (remoteAlbum) => {
 	);
 
 	await Promise.all([...artistPromises, ...trackPromises].flat());
+};
+
+/** @param {import("@types").Album} album */
+export const removeAlbum = async (album) => {
+	console.log("| Removing album from database:", album.id);
+	await Promise.all(album.tracks.map(removeTrack));
+	await Promise.all(
+		album.artists.map((artist) => removeAlbumFromArtist(artist, album.id)),
+	);
+
+	const db = await getDatabase();
+	const tx = db.transaction("albums", "readwrite");
+	return Promise
+		.all([
+			tx.store.delete(album.id),
+			tx.done,
+		])
+		.then(() => console.log("| Album removed from database"));
 };
 
 export const syncStoredAlbums = async (endpoint) => {

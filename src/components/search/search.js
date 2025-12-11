@@ -59,7 +59,8 @@ export class AppSearch extends HTMLElement {
 		if (value) {
 			searchSheet.replaceSync(`
 					:where([artist-names]) { display: none !important; }
-					[artist-names*="${value}"] { display: block !important; }
+					[artist-names*="${value}"] { display: grid !important; }
+					[album-title*="${value}"] { display: grid !important; }
 			`);
 		} else {
 			this.clearSearchStyles();

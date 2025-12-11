@@ -1,0 +1,78 @@
+album-list-item {
+  display: grid;
+  grid-template-areas: "cover title" "cover artist";
+  grid-template-columns: 4lh 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 0.5em;
+  row-gap: 0.25em;
+  position: relative;
+  z-index: 0;
+
+  @container album-list (width > 300px) {
+    grid-template-areas: "cover" "title" "artist";
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content max-content max-content;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 8px;
+    transition: scale 0.15s ease-in, opacity 0.15s ease-in;
+    background-color: Field;
+    opacity: 0;
+    scale: 0.85;
+  }
+
+  &:focus-visible,
+  &:focus-within::before {
+    opacity: 1;
+    scale: 1;
+    outline: none;
+  }
+
+  & img {
+    grid-area: cover;
+    aspect-ratio: 1;
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  & player-button {
+    grid-area: cover;
+    display: none;
+
+    album-list-item:focus-within & {
+      display: flex;
+    }
+  }
+
+  & a[href^="/album"] {
+    grid-area: title;
+    max-height: 2lh;
+    overflow: clip;
+    text-decoration: none;
+    color: white;
+    z-index: 1;
+
+  }
+
+  & a[href^="/artist"] {
+    grid-area: artist;
+    max-height: 1lh;
+    overflow: clip;
+    opacity: 0.5;
+    font-size: 0.8em;
+    color: white;
+    text-decoration: none;
+
+  }
+}

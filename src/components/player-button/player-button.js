@@ -26,11 +26,12 @@ const icons = {
 
 const styles = new CSSStyleSheet();
 styles.replaceSync(`
-
-	* {
-		box-sizing: border-box;
+	:host {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
-	
+
 	button {
 		appearance: none;
 		display: flex;
@@ -84,6 +85,16 @@ export class PlayerButton extends HTMLElement {
 	set iconOnly(value) {
 		this.#label.hidden = value;
 		this.#button.dataset.iconOnly = value ? "" : undefined;
+	}
+
+	/** @param {HTMLElement} value */
+	set popoverTargetElement(value) {
+		this.#button.popoverTargetElement = value;
+	}
+
+	/** @param {string} value */
+	set popoverTargetAction(value) {
+		this.#button.popoverTargetAction = value;
 	}
 }
 
