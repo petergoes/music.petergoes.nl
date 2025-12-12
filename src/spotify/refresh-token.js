@@ -36,6 +36,10 @@ export const getRefreshToken = async () => {
 	const body = await fetch(url, payload);
 	const response = await body.json();
 
+	if (response.expires_in) {
+		setTimeout(() => getRefreshToken(), response.expires_in);
+	}
+
 	localStorage.setItem("access_token", response.access_token);
 	if (response.refresh_token) {
 		localStorage.setItem("refresh_token", response.refresh_token);
