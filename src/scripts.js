@@ -16,6 +16,7 @@ import { handleCallback } from "./spotify/handle-callback.js";
 import { getRefreshToken } from "./spotify/refresh-token.js";
 import { setupWebPlayer } from "./spotify/web-player.js";
 import { batchUpdateArtistImages } from "./data/artists.js";
+import { getAvailableDevices, getPlaybackState } from "./data/devices.js";
 
 console.log("Music Peter Goes");
 
@@ -52,4 +53,11 @@ if (location.pathname === "/auth") {
 		app.reloadArtistList();
 		console.log("  - Reload done");
 	}
+
+	document.addEventListener("visibilitychange", () => {
+		if (!document.hidden) {
+			getPlaybackState();
+			getAvailableDevices();
+		}
+	});
 }

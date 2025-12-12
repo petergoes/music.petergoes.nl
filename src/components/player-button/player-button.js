@@ -39,6 +39,7 @@ styles.replaceSync(`
 		margin: 0;
 		border: 1px solid transparent;
 		border-radius: 8px;
+		cursor: pointer;
 	}
 	button[data-icon-only] {
 		border-radius: 100%;
