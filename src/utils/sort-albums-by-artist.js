@@ -4,10 +4,10 @@ import { getArtists } from "../data/artists.js";
  * @param {import("@types").Album[]} albums
  * @returns {Promise<import("@types").Album[]>}
  */
-export const toArtistAlbumMap = async (albums) => {
+export const sortAlbumsByArtist = async (albums) => {
 	const artists = await getArtists();
 
-	const map = albums.toSorted((a, b) => b.release_date - a.release_date).reduce(
+	const map = albums.toSorted((a, b) => a.release_date - b.release_date).reduce(
 		/** @param {import("@types").ArtistAlbumMap} map */
 		(map, album) => {
 			const firstArtist = album.artists[0];

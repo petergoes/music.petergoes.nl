@@ -1,9 +1,9 @@
 import { effect, signal } from "@preact/signals-core";
 import { getAlbum, getAlbums } from "../../data/albums.js";
 import { AlbumListItem } from "../album-list-item/album-list-item.js";
+import { sortAlbumsByArtist } from "../../utils/sort-albums-by-artist.js";
 
 import styles from "./album-list.css" with { type: "css" };
-import { toArtistAlbumMap } from "../../utils/to-artist-album-map.js";
 document.adoptedStyleSheets.push(styles);
 
 export class AlbumList extends HTMLElement {
@@ -36,7 +36,7 @@ export class AlbumList extends HTMLElement {
 				);
 			})
 			.then(async (albums) => {
-				return (await toArtistAlbumMap(albums)).forEach(
+				return (await sortAlbumsByArtist(albums)).forEach(
 					(album) => {
 						this.appendChild(new AlbumListItem(album));
 					},
