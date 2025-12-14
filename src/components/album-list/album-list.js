@@ -3,6 +3,7 @@ import { getAlbum, getAlbums } from "../../data/albums.js";
 import { AlbumListItem } from "../album-list-item/album-list-item.js";
 
 import styles from "./album-list.css" with { type: "css" };
+import { toArtistAlbumMap } from "../../utils/to-artist-album-map.js";
 document.adoptedStyleSheets.push(styles);
 
 export class AlbumList extends HTMLElement {
@@ -34,13 +35,13 @@ export class AlbumList extends HTMLElement {
 					),
 				);
 			})
-			.then((albums) =>
-				albums.toSorted((a, b) => b.release_date - a.release_date).forEach(
+			.then(async (albums) => {
+				return (await toArtistAlbumMap(albums)).forEach(
 					(album) => {
 						this.appendChild(new AlbumListItem(album));
 					},
-				)
-			);
+				);
+			});
 	}
 
 	connectedCallback() {

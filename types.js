@@ -61,6 +61,10 @@
  */
 
 /**
+ * @typedef {Record<string, Album[]>} ArtistAlbumMap
+ */
+
+/**
  * @typedef Device           {Object}
  * @prop id                  {string}
  * @prop is_active           {boolean}
