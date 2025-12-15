@@ -13,6 +13,7 @@ export const hasAccessToken = new Promise((resolve, reject) => {
 });
 
 export const getRefreshToken = async () => {
+	console.log("} Getting Refresh Token");
 	// refresh token that has been previously stored
 	const refreshToken = localStorage.getItem("refresh_token");
 	const url = "https://accounts.spotify.com/api/token";
@@ -36,7 +37,16 @@ export const getRefreshToken = async () => {
 	const body = await fetch(url, payload);
 	const response = await body.json();
 
+	if (response.error) {
+		authenticate();
+		return;
+	}
+
 	if (response.expires_in) {
+		localStorage.setItem(
+			"refresh_token_expires",
+			`${Date.now() + (response.expires_in * 1000)}`,
+		);
 		setTimeout(() => getRefreshToken(), response.expires_in * 1000);
 	}
 
@@ -47,5 +57,6 @@ export const getRefreshToken = async () => {
 		localStorage.setItem("refresh_token", response.refresh_token);
 	}
 
+	console.log("} Refresh token retrieved");
 	resolveHasAccessToken(response.access_token);
 };

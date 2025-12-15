@@ -5,6 +5,7 @@ import { PlayerButton } from "../player-button/player-button.js";
 import { effect } from "@preact/signals-core";
 
 import styles from "./player.css" with { type: "css" };
+import { dropDatabase } from "../../data/idb.js";
 document.adoptedStyleSheets.push(styles);
 
 export class AppPlayer extends HTMLElement {
@@ -31,6 +32,16 @@ export class AppPlayer extends HTMLElement {
 		filler.height = 44;
 		filler.src = "/icons/background.svg";
 		filler.classList.add("filler");
+		filler.onclick = async () => {
+			if (confirm("Drop the database?")) {
+				if (confirm("sure?")) {
+					console.log("dropping database");
+					await dropDatabase();
+					console.log("reloading");
+					location.reload();
+				}
+			}
+		};
 		this.appendChild(filler);
 
 		this.#container = document.createElement("div");

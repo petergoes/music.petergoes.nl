@@ -1,8 +1,12 @@
+import { hasAccessToken } from "./refresh-token.js";
+
 /**
  * @param {string} endpoint
  * @param {RequestInit} [init]
  */
-export const apiCall = (endpoint, init = {}) => {
+export const apiCall = async (endpoint, init = {}) => {
+	await hasAccessToken;
+
 	const origin = "https://api.spotify.com/";
 	const accessToken = localStorage.getItem("access_token");
 

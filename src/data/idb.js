@@ -1,4 +1,4 @@
-import { openDB } from "idb";
+import { deleteDB, openDB } from "idb";
 
 /**
  * DBSchema for our IDB database using JSDoc.
@@ -38,6 +38,8 @@ export const getDatabase = () =>
 			artists.createIndex("name", "name");
 		},
 	});
+
+export const dropDatabase = async () => await deleteDB("music_data");
 
 /** @param {import('@types').Album[]} albums */
 export const addAlbums = async (albums) => {
