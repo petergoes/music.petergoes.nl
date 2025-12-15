@@ -17,6 +17,7 @@ import { getRefreshToken } from "./spotify/refresh-token.js";
 import { setupWebPlayer } from "./spotify/web-player.js";
 import { batchUpdateArtistImages } from "./data/artists.js";
 import { getAvailableDevices, getPlaybackState } from "./data/devices.js";
+import { documentIsVisible } from "./utils/document-visibility.js";
 
 console.log("Music Peter Goes");
 
@@ -54,8 +55,9 @@ if (location.pathname === "/auth") {
 		console.log("  - Reload done");
 	}
 
-	document.addEventListener("visibilitychange", () => {
-		if (!document.hidden) {
+	documentIsVisible.subscribe((isVisible) => {
+		if (isVisible) {
+			console.log("document is visible");
 			getPlaybackState();
 			getAvailableDevices();
 		}

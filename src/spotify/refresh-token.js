@@ -1,6 +1,7 @@
 import { clientId } from "./config.js";
 import { authenticate } from "./authenticate.js";
 import { signal } from "@preact/signals-core";
+import { documentIsVisible } from "../utils/document-visibility.js";
 
 /** @type{(value: unknown) => void} */
 let resolveHasAccessToken;
@@ -62,14 +63,7 @@ export const getRefreshToken = async () => {
 	resolveHasAccessToken(response.access_token);
 };
 
-const visible = signal(true);
-
-document.addEventListener(
-	"visibilitychange",
-	() => visible.value = document.hidden,
-);
-
-visible.subscribe((isVisible) => {
+documentIsVisible.subscribe((isVisible) => {
 	if (isVisible) {
 		const expires = Number(localStorage.getItem("refresh_token_expires"));
 		if (expires < Date.now()) {
