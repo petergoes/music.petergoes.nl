@@ -37,7 +37,7 @@ export const getRefreshToken = async () => {
 	const response = await body.json();
 
 	if (response.expires_in) {
-		setTimeout(() => getRefreshToken(), response.expires_in);
+		setTimeout(() => getRefreshToken(), response.expires_in * 1000);
 	}
 
 	localStorage.setItem("access_token", response.access_token);

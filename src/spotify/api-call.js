@@ -22,7 +22,7 @@ export const apiCall = (endpoint, init = {}) => {
 	return fetch(url, { ...requestInit, headers }).then(async (response) => {
 		if (response.status > 299) {
 			const json = await response.json();
-			alert(json.message);
+			alert(json);
 		}
 		if (response.headers.get("Content-Type")?.includes("application/json")) {
 			return response.json();
