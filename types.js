@@ -83,6 +83,7 @@
  * @prop href          {string} - A link to the Web API endpoint providing full details of the track.
  * @prop external_urls {string[]} - External URLs for this context.
  * @prop uri           {string}
+ * @prop [images]      {Image[]}
  */
 
 /**

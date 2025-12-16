@@ -1,6 +1,7 @@
 import { getArtistsById } from "../../data/artists.js";
 import { play } from "../../spotify/player.js";
 import { PlayerButton } from "../player-button/player-button.js";
+import { playbackState } from "../../data/devices.js";
 
 import styles from "./album-list-item.css" with { type: "css" };
 document.adoptedStyleSheets.push(styles);
@@ -48,6 +49,29 @@ export class AlbumListItem extends HTMLElement {
 			this.setAttribute("artist-names", names.toLowerCase());
 		});
 	}
+
+	connectedCallback() {
+		this.addEventListener("keydown", this.handleOnDown);
+
+		playbackState.subscribe((value) => {
+			if (value?.context?.uri === this.album.uri) {
+				this.ariaCurrent = "true";
+			} else {
+				this.ariaCurrent = null;
+			}
+		});
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener("keydown", this.handleOnDown);
+	}
+
+	/** @param {KeyboardEvent} event */
+	handleOnDown = (event) => {
+		if (event.key === "Enter") {
+			this.handleOnPlay();
+		}
+	};
 
 	handleOnPlay = () => {
 		if (this.album.uri) {

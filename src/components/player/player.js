@@ -24,6 +24,9 @@ export class AppPlayer extends HTMLElement {
 	/** @type {HTMLSpanElement} */
 	#songTitle;
 
+	/** @type {HTMLDivElement} */
+	#currentCover;
+
 	constructor() {
 		super();
 
@@ -63,12 +66,16 @@ export class AppPlayer extends HTMLElement {
 
 		this.#progress = document.createElement("progress");
 
+		this.#currentCover = document.createElement("div");
+		this.#currentCover.classList.add("current-cover");
+
 		const devices = new DevicesSelector();
 
 		this.#container.appendChild(this.#playButton);
 		this.#container.appendChild(this.#pauseButton);
 		this.#container.appendChild(this.#songTitle);
 		this.#container.appendChild(this.#progress);
+		this.appendChild(this.#currentCover);
 		this.appendChild(this.#container);
 		this.appendChild(devices);
 
@@ -95,6 +102,17 @@ export class AppPlayer extends HTMLElement {
 			this.#playButton.hidden = false;
 			this.#pauseButton.hidden = true;
 			this.#songTitle.innerText = "";
+		}
+
+		if (state?.context?.images?.[0]) {
+			const currentImage = this.#currentCover.querySelector("img");
+			if (currentImage?.src !== state.context.images[0].url) {
+				const img = document.createElement("img");
+				img.src = state.context.images[0].url;
+				this.#currentCover.replaceChildren(img);
+			}
+		} else {
+			this.#currentCover.replaceChildren();
 		}
 
 		this.#progress.max = playbackState.value?.item?.duration_ms || 100;

@@ -1,15 +1,9 @@
-@property --artist-list-item-min-width {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 100px;
-}
-
 artist-list {
   container-type: inline-size;
   container-name: --artist-list;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--artist-list-item-min-width), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-list-item-min-width), 1fr));
   gap: calc(var(--space) * 0.5);
   padding-top: calc(var(--space) + env(safe-area-inset-top));
 }

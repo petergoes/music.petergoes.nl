@@ -1,5 +1,6 @@
 import { apiCall } from "../spotify/api-call.js";
 import { Signal, signal } from "@preact/signals-core";
+import { getAlbum } from "./albums.js";
 
 /** @type {Signal<string | undefined>} */
 export const localWebPlayerDeviceId = signal();
@@ -43,6 +44,12 @@ export const getPlaybackState = async () => {
 	const { device } = state || {};
 	if (device) {
 		activeDevice.value = device;
+	}
+
+	const contextId = state.context?.uri.replace(/.+:/, "");
+	const artist = await getAlbum(contextId || "").catch(() => {});
+	if (artist) {
+		state.context.images = artist.images;
 	}
 
 	playbackState.value = state;

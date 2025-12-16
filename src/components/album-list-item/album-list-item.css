@@ -7,11 +7,17 @@ album-list-item {
   row-gap: 0.25em;
   position: relative;
   z-index: 0;
+  border-radius: 8px;
 
   @container album-list (width > 300px) {
     grid-template-areas: "cover" "title" "artist";
     grid-template-columns: 1fr;
     grid-template-rows: max-content max-content max-content;
+  }
+
+  &[aria-current="true"] {
+    outline: 2px solid deeppink !important;
+    z-index: 1;
   }
 
   &::before {
