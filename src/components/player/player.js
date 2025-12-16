@@ -71,7 +71,7 @@ export class AppPlayer extends HTMLElement {
 
 		const devices = new DevicesSelector();
 
-		this.#container.appendChild(this.#playButton);
+		// this.#container.appendChild(this.#playButton);
 		this.#container.appendChild(this.#pauseButton);
 		this.#container.appendChild(this.#songTitle);
 		this.#container.appendChild(this.#progress);

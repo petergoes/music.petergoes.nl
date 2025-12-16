@@ -26,7 +26,7 @@ app-root {
     overflow-y: scroll;
     overflow-x: hidden;
     margin-inline: var(--space);
-    margin-block-end: 150px;
+    padding-block-end: 150px;
   }
 
   &>app-router {
@@ -37,6 +37,7 @@ app-root {
   &>app-player {
     position: fixed;
     bottom: 0;
+    z-index: 1;
   }
 }
 

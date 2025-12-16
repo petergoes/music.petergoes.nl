@@ -46,7 +46,7 @@ export const getPlaybackState = async () => {
 		activeDevice.value = device;
 	}
 
-	const contextId = state.context?.uri.replace(/.+:/, "");
+	const contextId = state?.context?.uri.replace(/.+:/, "");
 	const artist = await getAlbum(contextId || "").catch(() => {});
 	if (artist) {
 		state.context.images = artist.images;
